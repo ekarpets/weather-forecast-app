@@ -1,0 +1,27 @@
+.weather-blocks {
+  display: flex;
+  gap: 40px;
+  margin: 70px 0;
+  padding-bottom: 20px;
+  overflow: scroll;
+  width: 70%;
+}
+
+.weather-block {
+  text-align: center;
+}
+
+.weather-block__day {
+  color: var(--gray-text);
+}
+
+.weather-block > p {
+  font-size: 0.8rem;
+}
+
+.weather-block > img {
+  margin: 20px 0;
+  background-color: var(--custom-gray);
+  border-radius: 75%;
+  padding: 10px;
+}
