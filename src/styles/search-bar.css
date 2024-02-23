@@ -18,6 +18,7 @@
 
 .search-bar__image {
   padding: 15px 0 15px;
+  width: 60px;
 }
 
 .search-bar__input {

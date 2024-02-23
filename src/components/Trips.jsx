@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import Trip from './Trip.jsx';
-import { trips as defaultTrip } from '../assets/defaultListOfTrips.js'
 
 export default function Trips({
   filter,
@@ -8,13 +6,12 @@ export default function Trips({
   handleFormOpen,
   handleTripSelected
 }) {
-  const [trips, setTrips] = useState(defaultTrip);
+  const listOfTrips = JSON.parse(localStorage.getItem('listOfTrips') || '');
 
   return (
     <section className="trips">
-      {trips
+      {listOfTrips
         .filter(trip => trip.city.toLowerCase().includes(filter))
-        .sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate))
         .map((trip, index) => {
           const isActive = trip.city === selectedCity;
 

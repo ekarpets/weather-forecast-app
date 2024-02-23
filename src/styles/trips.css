@@ -10,6 +10,7 @@
 
 .trip {
   width: 210px;
+  overflow: hidden;
   border: 2px solid var(--custom-gray);
   box-sizing: border-box;
 
@@ -18,6 +19,10 @@
 
   font-size: 0.75rem;
   cursor: pointer;
+}
+
+.trip img {
+  object-fit: cover;
 }
 
 .trip.active {
