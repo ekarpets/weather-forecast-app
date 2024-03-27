@@ -10,28 +10,25 @@ export default function Aside ({ currentTrip }) {
   const { city, startDate } = currentTrip;
   const today = new Date().toLocaleString('en-us', { weekday: 'long' });
 
-  const [condition, setCondition] = useState({temp: 0, icon: 'partly-cloudy-day'});
-  const [imgIndex, setImgIndex] = useState('');
+  const [condition, setCondition] = useState({temp: 0, icon: 'cloudy'});
 
-  // const getWeather = async () => {
-  //   try {
-  //     const weatherInfo = await getCurrentWeather(city);
-  //     const currentDay = weatherInfo.days[0];
+  const getWeather = async () => {
+    try {
+      const weatherInfo = await getCurrentWeather(city);
+      const currentDay = weatherInfo.days[0];
 
-  //     if ('Error' in weatherInfo) throw new Error();
+      if ('Error' in weatherInfo) throw new Error();
 
-  //     setCondition(currentDay);
-  //     imageSrc(currentDay.icon);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+      setCondition({temp: currentDay.temp, icon: currentDay.icon});
+      imageSrc(currentDay.icon);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  // useEffect(() => {
-  //   getWeather();
-  // }, []);
-
-console.log(imageSrc(condition.icon))
+  useEffect(() => {
+    getWeather();
+  }, [city]);
 
   return (
     <aside className="aside">
@@ -47,13 +44,11 @@ console.log(imageSrc(condition.icon))
       <div className="aside__weather">
         <h2>{today}</h2>
         <div className="aside__weather__info">
-          {/* {imgIndex &&  */}
-            <img
-              src={imageSrc(condition.icon)}
-              alt="Weather"
-              height="60" width="60"
-            />
-          {/* } */}
+          <img
+            src={imageSrc(condition.icon)}
+            alt="Weather"
+            height="60" width="60"
+          />
           <p>
             {Math.round(condition.temp)} <sup><small>&deg;</small></sup>
           </p> 

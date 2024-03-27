@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 import Header from './components/Header';
@@ -10,6 +10,13 @@ import Form from './components/Form.jsx';
 import { trips } from './assets/defaultListOfTrips.js'
 
 function App() {
+  let listOfTrips;
+  if (localStorage['listOfTrips']) {
+    listOfTrips = JSON.parse(localStorage.getItem('listOfTrips'));
+  } else {
+    localStorage.setItem('listOfTrips', JSON.stringify(trips));
+  }
+  
   const [filter, setFilter] = useState('');
   const searchBarData = (data) => setFilter(data.toLowerCase());
 
@@ -17,7 +24,7 @@ function App() {
   const handleFormOpen = () => setFormVisible(true);
   const handleFormClose = () => setFormVisible(false);
 
-  const [selectedTrip, setSelectedTrip] = useState(trips[0]);
+  const [selectedTrip, setSelectedTrip] = useState(listOfTrips[0]);
   const handleTripSelected = (trip) => setSelectedTrip(trip);
 
   return (

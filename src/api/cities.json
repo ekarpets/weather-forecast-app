@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Rome",
+    "imageUrl": "images/cities/rome.jpeg"
+  },
+  {
+    "name": "Paris",
+    "imageUrl": "images/cities/paris.jpeg"
+  },
+  {
+    "name": "Prague",
+    "imageUrl": "images/cities/prague.jpeg"
+  },
+  {
+    "name": "London",
+    "imageUrl": "images/cities/london.jpeg"
+  },
+  {
+    "name": "Istanbul",
+    "imageUrl": "images/cities/istanbul.jpeg"
+  },
+  {
+    "name": "Amsterdam",
+    "imageUrl": "images/cities/amsterdam.jpeg"
+  },
+  {
+    "name": "Barcelona",
+    "imageUrl": "images/cities/barcelona.jpeg"
+  },
+  {
+    "name": "Berlin",
+    "imageUrl": "images/cities/berlin.jpeg"
+  },
+  {
+    "name": "Vienna",
+    "imageUrl": "images/cities/vienna.jpeg"
+  },
+  {
+    "name": "Athens",
+    "imageUrl": "images/cities/athens.jpeg"
+  },
+  {
+    "name": "Lisbon",
+    "imageUrl": "images/cities/lisbon.jpeg"
+  },
+  {
+    "name": "Warsaw",
+    "imageUrl": "images/cities/warsaw.jpeg"
+  },
+  {
+    "name": "Stockholm",
+    "imageUrl": "images/cities/stockholm.jpeg"
+  },
+  {
+    "name": "Tallinn",
+    "imageUrl": "images/cities/tallinn.jpeg"
+  },
+  {
+    "name": "Venice",
+    "imageUrl": "images/cities/venice.jpeg"
+  },
+  {
+    "name": "Bruges",
+    "imageUrl": "images/cities/bruges.jpeg"
+  }
+]

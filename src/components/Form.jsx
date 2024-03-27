@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { getCities } from '../api/api_cities';
-import { trips } from '../assets/defaultListOfTrips.js';
+
+const initialTrip = {
+  "city": "",
+  "startDate": "2024-01-01",
+  "endDate": "2024-01-01",
+  "image": ""
+};
 
 export default function Form({ handleFormClose }) {
+  const listOfTrips = JSON.parse(localStorage.getItem('listOfTrips') || '');
+
   const dateFormater = (date) => date.toISOString().split('T')[0];
 
   const todayPlusNDays = (date, daysNumber) => {
@@ -14,8 +22,6 @@ export default function Form({ handleFormClose }) {
   }
 
   const today = new Date();
-  // const [trips, setTrips] = useState(defaultTrip);
-
   const [tripStartDate, setTripStartDate] = useState(today)
   const handleStartDayChange = (e) => setTripStartDate(e.target.value);
 
@@ -26,31 +32,44 @@ export default function Form({ handleFormClose }) {
       const result = await getCities();
 
       setCityList(result);
-      console.log(result)
+      localStorage.setItem('cityList', JSON.stringify(result));
     } catch(e) {
       console.log(e);
     }
   };
 
   useEffect(() => {
-    if (cityList.length === 0) {
+    if (!localStorage['cityList']) {
       getData();
+    } else {
+      setCityList(JSON.parse(localStorage.getItem('cityList')));
     }
-  }, [cityList.length]);
+  }, []);
+
+  const [newTrip, setNewTrip] = useState(initialTrip);
+
+  const handleFormChange = (e) => {
+    const targetValue = e.target;
+
+    setNewTrip(prevTrip => ({
+      ...prevTrip,
+      [targetValue.name]: targetValue.value
+    }));
+  }
+
+  const getImgUrl = (city) => {
+    return cityList.find(el => el.name === city).imageUrl;
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleFormClose();
 
-    const targetValue = e.target;
-    const city = targetValue.form__city.value;
-    const startDate = targetValue.form__startDate.value;
-    const endDate = targetValue.form__endDate.value;
+    const image = getImgUrl(newTrip.city);
 
-    const newTrip = { city, startDate, endDate };
-
-    trips.push(newTrip)
-    console.log(newTrip)
+    listOfTrips.push({ ...newTrip, image });
+    listOfTrips.sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate))
+    localStorage.setItem('listOfTrips', JSON.stringify(listOfTrips));
   }
 
   return (
@@ -60,13 +79,13 @@ export default function Form({ handleFormClose }) {
         <button className="form__cross" onClick={handleFormClose}>x</button>
       </div>
   
-      <form onSubmit={e => handleFormSubmit(e)}>
+      <form onSubmit={e => handleFormSubmit(e)} onChange={e => handleFormChange(e)}>
         <div className="form__body">
           <label htmlFor="form__city"><span>* </span>City</label>
           <input
             list="form__city__list"
             id="form__city"
-            name="form__city"
+            name="city"
             placeholder='Please select a city'
             required
           />
@@ -74,16 +93,14 @@ export default function Form({ handleFormClose }) {
             {cityList.map((item, index) => (
               <option value={item.name} key={index}></option>
             ))}
-            <option value="Paris"></option>
-            <option value="London"></option>
           </datalist>
-
           <label htmlFor="form__startDate"><span>* </span>Start date</label>
           <input
             id="form__startDate"
+            name="startDate"
             type="date"
             min={todayPlusNDays(today, 1)}
-            max={todayPlusNDays(today, 16)}
+            max={todayPlusNDays(today, 15)}
             onChange={e => handleStartDayChange(e)}
             value={tripStartDate}
             required
@@ -92,9 +109,10 @@ export default function Form({ handleFormClose }) {
           <label htmlFor="form__endDate"><span>* </span>End date</label>
           <input
             id="form__endDate"
+            name="endDate"
             type="date"
             min={todayPlusNDays(tripStartDate, 0)}
-            max={todayPlusNDays(tripStartDate, 15)}
+            max={todayPlusNDays(today, 15)}
             required
           />
         </div>

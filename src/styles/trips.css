@@ -20,6 +20,11 @@
   cursor: pointer;
 }
 
+.trip img {
+  object-fit: cover;
+  min-width: 200px;
+}
+
 .trip.active {
   border: 2px solid var(--custom-blue);
 }

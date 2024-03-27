@@ -1,6 +1,4 @@
-const BASE_URL = 'https://github.com/ekarpets/weather-forecast-app';
-// weather-forecast-app/src/assets/cities.json
-// /Users/emmakorovnik/Desktop/udemy/weather-forecast-app/public/cities.json
+const BASE_URL = 'api';
 
 function wait(delay) {
   return new Promise(resolve => {
@@ -8,15 +6,8 @@ function wait(delay) {
   });
 }
 
-function request (url, method = 'GET', data) {
+function request (url, method = 'GET') {
   const options = { method };
-  console.log(data)
-  if (data) {
-    options.body = JSON.stringify(data);
-    options.headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-  }
 
   return wait(600)
     .then(() => fetch(BASE_URL + url, options))
@@ -24,7 +15,7 @@ function request (url, method = 'GET', data) {
       if (!response.ok) {
         throw new Error();
       }
-      console.log(response)
+
       return response.json();
     });
 }

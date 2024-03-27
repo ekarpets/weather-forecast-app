@@ -28,32 +28,32 @@ export default function WeatherBlock ({ currentTrip }) {
     {"day": "2024-03-04", "tempmax": 12, "tempmin": 4, "condition": 'rain'},
   ]);
   
-  // const getWeather = async () => {
-  //   try {
-  //     const weatherInfo = await getFutureWeather(city, startDate, endDate);
-  //     const setectedDays = weatherInfo.days;
+  const getWeather = async () => {
+    try {
+      const weatherInfo = await getFutureWeather(city, startDate, endDate);
+      const setectedDays = weatherInfo.days;
 
-  //     console.log(setectedDays);
+      console.log(setectedDays);
 
-  //     if ('Error' in weatherInfo) {
-  //       throw new Error();
-  //     }
-  //     const info = setectedDays.map(day => ({
-  //       day: new Date(day.datetime).getDay(),
-  //       tempmax: Math.round(day.tempmax),
-  //       tempmin: Math.round(day.tempmin),
-  //       condition: day.icon
-  //     }))
+      if ('Error' in weatherInfo) {
+        throw new Error();
+      }
+      const info = setectedDays.map(day => ({
+        day: new Date(day.datetime).getDay(),
+        tempmax: Math.round(day.tempmax),
+        tempmin: Math.round(day.tempmin),
+        condition: day.icon
+      }))
 
-  //     setWeather(info);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+      setWeather(info);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   
-  // useEffect(() => {
-  //   getWeather();
-  // }, []);
+  useEffect(() => {
+    getWeather();
+  }, [currentTrip]);
 
   return (
     <section>
